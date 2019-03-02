@@ -1,6 +1,6 @@
-export default interface IAbpAjaxResult {
+export default interface IAbpAjaxResult<T> {
   error: Object;
-  result: Object;
+  result: T;
   success: boolean;
   targetUrl: string;
   unAuthorizedRequest: boolean;
