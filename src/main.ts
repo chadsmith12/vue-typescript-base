@@ -8,16 +8,7 @@ import appConsts from "@/lib/appconsts";
 
 Vue.config.productionTip = false;
 
-if (!window.abp.utils.getCookieValue(appConsts.AppConsts.localizationCookieName)) {
-  let language: string = navigator.language;
-  const cookieExpiration: Date = new Date(new Date().getTime() + 5 * 365 * 86400000);
-  window.abp.utils.setCookieValue(
-    appConsts.AppConsts.localizationCookieName,
-    language,
-    cookieExpiration,
-    window.abp.appPath
-  );
-}
+Util.setLocalizationCookieIfNotSet(appConsts.AppConsts.localizationCookieName);
 
 // setting the global abp object here
 let userConfigService: UserConfigService = new UserConfigService();

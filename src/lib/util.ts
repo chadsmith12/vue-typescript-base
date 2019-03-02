@@ -1,6 +1,18 @@
 class Util {
   abp: any = window.abp;
 
+  /**
+   * Sets the localization cookie to the language of the browser if it has not already been set.
+   * @param cookieName The name for this localization cookie.
+   */
+  setLocalizationCookieIfNotSet(cookieName: string): void {
+    if (!window.abp.utils.getCookieValue(cookieName)) {
+      let language: string = navigator.language;
+      const cookieExpiration: Date = new Date(new Date().getTime() + 5 * 365 * 86400000);
+      window.abp.utils.setCookieValue(cookieName, language, cookieExpiration, window.abp.appPath);
+    }
+  }
+
   extend(...args: any[]): any {
     let options: any,
       name: any,
