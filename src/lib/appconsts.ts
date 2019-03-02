@@ -10,8 +10,9 @@ const AppConsts: IAppConsts = {
   authorization: {
     encryptedAuthTokenName: "enc_auth_token"
   },
-  appBaseUrl: "http://localhost:8080",
-  remoteServiceBaseUrl: "http://localhost:21021/"
+  appBaseUrl: "http://localhost:8082",
+  remoteServiceBaseUrl: "http://localhost:21021/",
+  localizationCookieName: "Localization.CultureName"
 };
 
 export default { AppConsts };

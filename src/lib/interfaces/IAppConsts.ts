@@ -6,4 +6,5 @@ export interface IAppConsts {
   authorization: IAuthorization;
   appBaseUrl: string;
   remoteServiceBaseUrl: string;
+  localizationCookieName: string;
 }
