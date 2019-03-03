@@ -16,4 +16,5 @@ class SessionService implements ISessionService {
   }
 }
 
-export default SessionService;
+const sessionService: SessionService = new SessionService();
+export default sessionService;
