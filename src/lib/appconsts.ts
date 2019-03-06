@@ -1,4 +1,4 @@
-import { IAppConsts } from "./interfaces/IAppConsts";
+import { IAppConsts } from "@/core/interfaces/IAppConsts";
 
 /**
  * The application consts that will be used across the application

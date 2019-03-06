@@ -1,3 +1,5 @@
+/// <reference path="abp.d.ts" />
+
 var abp = abp || {};
 (function() {
   /* Application paths *****************************************/

@@ -1,7 +1,7 @@
 import IAccountService from "@/services/interfaces/IAccountService";
-import { IUserLoginResult } from "@/lib/interfaces/IUserLoginResult";
+import { IUserLoginResult } from "@/core/interfaces/IUserLoginResult";
 import ajax from "@/lib/ajax";
-import IAbpAjaxResult from "@/lib/interfaces/IAbpAjaxResult";
+import IAbpAjaxResult from "@/core/interfaces/IAbpAjaxResult";
 import { AxiosResponse } from "axios";
 
 class AccountService implements IAccountService {

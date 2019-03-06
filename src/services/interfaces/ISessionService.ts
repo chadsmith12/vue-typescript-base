@@ -1,4 +1,4 @@
-import { ILoginInformation } from "@/lib/interfaces/ISession";
+import { ILoginInformation } from "@/core/interfaces/ISession";
 
 export default interface ISessionService {
   getLoginInformation(): Promise<ILoginInformation>;

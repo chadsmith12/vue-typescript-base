@@ -1,4 +1,4 @@
-import { ITenant } from "@/lib/interfaces/ISession";
+import { ITenant } from "@/core/interfaces/ISession";
 
 export default class Tenant implements ITenant {
   tenancyName: string = "";

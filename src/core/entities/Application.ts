@@ -1,4 +1,4 @@
-import { IApplication } from "@/lib/interfaces/ISession";
+import { IApplication } from "@/core/interfaces/ISession";
 
 export default class Application implements IApplication {
   version: string = "";

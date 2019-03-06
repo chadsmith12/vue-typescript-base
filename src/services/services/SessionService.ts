@@ -1,7 +1,7 @@
 import ISessionService from "@/services/interfaces/ISessionService";
-import { ILoginInformation } from "@/lib/interfaces/ISession";
+import { ILoginInformation } from "@/core/interfaces/ISession";
 import ajax from "@/lib/ajax";
-import IAbpAjaxResult from "@/lib/interfaces/IAbpAjaxResult";
+import IAbpAjaxResult from "@/core/interfaces/IAbpAjaxResult";
 import { AxiosResponse } from "axios";
 
 class SessionService implements ISessionService {

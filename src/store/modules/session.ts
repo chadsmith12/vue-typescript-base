@@ -1,9 +1,8 @@
 import store from "@/store/store";
-import util from "@/lib/util";
 import sessionService from "@/services/services/SessionService";
-import SessionState from "@/lib/entities/SessionState";
+import SessionState from "@/core/entities/SessionState";
 import { Module, VuexModule, Mutation, Action, getModule } from "vuex-module-decorators";
-import { ILoginInformation } from "@/lib/interfaces/ISession";
+import { ILoginInformation } from "@/core/interfaces/ISession";
 
 @Module({ dynamic: true, store, name: "session" })
 export default class Session extends VuexModule {

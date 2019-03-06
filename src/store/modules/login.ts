@@ -1,16 +1,7 @@
-import {
-  VuexModule,
-  Module,
-  MutationAction,
-  Mutation,
-  Action,
-  getModule
-} from "vuex-module-decorators";
+import { VuexModule, Module, Mutation, Action, getModule } from "vuex-module-decorators";
 import store from "@/store/store";
-import Util from "@/lib/util";
-import AppConsts from "@/lib/appconsts";
 import accountService from "@/services/services/AccountService";
-import { IUserLoginResult } from "@/lib/interfaces/IUserLoginResult";
+import { IUserLoginResult } from "@/core/interfaces/IUserLoginResult";
 
 export interface IUserState {
   token: string;
@@ -26,10 +17,11 @@ class UserState extends VuexModule implements IUserState {
   public async Login(userInfo: { username: string; password: string }): Promise<IUserLoginResult> {
     const username: string = userInfo.username.trim();
     const loginResult: IUserLoginResult = await accountService.login(username, userInfo.password);
-    Util.abp.auth.setToken(
-      loginResult.accessToken,
-      new Date(new Date().getTime() + 1000 * loginResult.expireInSeconds)
+    const expirationTimes: Date = new Date(
+      new Date().getTime() + 1000 * loginResult.expireInSeconds
     );
+
+    abp.auth.setToken(loginResult.accessToken, expirationTimes);
 
     return loginResult;
   }
