@@ -6,6 +6,7 @@ import UserConfigService from "@/services/services/UserConfigurationService";
 import Util from "@/lib/util";
 import appConsts from "@/lib/appconsts";
 import { SessionModule } from "@/store/modules/session";
+import "@/permissions";
 
 Vue.config.productionTip = false;
 
