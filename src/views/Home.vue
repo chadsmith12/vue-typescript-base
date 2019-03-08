@@ -1,17 +1,16 @@
 <template>
-  <v-container fill-height fluid grid-list-xl>
-    <v-layout justify-center wrap>
-      <v-flex xs12 md8>
-        <img alt="Vue logo" src="../assets/logo.png">
-      </v-flex>
-    </v-layout>
-  </v-container>
+  <HelloWorld/>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import HelloWorld from "@/components/HelloWorld.vue";
 import UserConfigService from "@/services/services/UserConfigurationService";
 
-@Component({})
+@Component({
+  components: {
+    HelloWorld
+  }
+})
 export default class Home extends Vue {}
 </script>

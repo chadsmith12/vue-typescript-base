@@ -1,8 +1,11 @@
 <template>
   <v-app>
-    <SideBar/>
     <Toolbar/>
-    <MainLayout/>
+    <SideBar/>
+    <!-- <v-navigation-drawer app :mini="true"></v-navigation-drawer>
+    <v-content>
+      <router-view></router-view>
+    </v-content>-->
   </v-app>
 </template>
 
@@ -19,5 +22,7 @@ import Toolbar from "@/components/Toolbar.vue";
     MainLayout
   }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  isDrawerOpen: boolean = false;
+}
 </script>
