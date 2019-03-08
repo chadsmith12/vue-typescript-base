@@ -1,19 +1,26 @@
+// the vue build version to load with import
 import Vue from "vue";
-import "./plugins/vuetify";
+
+// load in components
+import "@/components";
+
+// load in plugins
+import "@/plugins";
+
+// application imports
 import App from "./App.vue";
-import router from "./router";
+import router from "./router/router";
 import store from "./store/store";
 import UserConfigService from "@/services/services/UserConfigurationService";
 import Util from "@/lib/util";
 import appConsts from "@/lib/appconsts";
 import { SessionModule } from "@/store/modules/session";
-import "@/permissions";
+import "@/router/permissions";
 
 Vue.config.productionTip = false;
 
 Util.setLocalizationCookieIfNotSet(appConsts.AppConsts.localizationCookieName);
 
-// setting the global abp object here
 const userConfigService: UserConfigService = new UserConfigService();
 
 userConfigService.getUserConfiguration().then(data => {

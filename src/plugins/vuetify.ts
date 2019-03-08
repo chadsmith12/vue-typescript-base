@@ -1,8 +1,10 @@
 import Vue from "vue";
-import Vuetify, { VList } from "vuetify/lib";
-import "vuetify/src/stylus/app.styl";
+import Vuetify from "vuetify";
+import theme from "@/plugins/theme";
+import "vuetify/dist/vuetify.min.css";
+import "@mdi/font/css/materialdesignicons.css";
 
 Vue.use(Vuetify, {
-  iconfont: "md",
-  components: { VList }
+  iconfont: "mdi",
+  theme
 });

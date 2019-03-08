@@ -1,4 +1,4 @@
-import router from "@/router";
+import router from "@/router/router";
 import { Route } from "vue-router";
 
 // defines the routes that are whitelisted, that we can get to without authenticating
