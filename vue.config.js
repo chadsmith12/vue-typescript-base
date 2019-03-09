@@ -14,6 +14,7 @@ module.exports = {
       };
     } else {
       return {
+        devtool: "source-map",
         plugins: [
           new CopyWebpackPlugin([
             {

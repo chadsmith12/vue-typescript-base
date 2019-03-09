@@ -34,6 +34,13 @@ export default class Session extends VuexModule {
   public DESTROY_SESSION(): void {
     this.session.user = new User();
   }
+
+  /**
+   * Gets the the version of the application
+   */
+  get applicationVersion(): string {
+    return this.session.application.version;
+  }
 }
 
 export const SessionModule: Session = getModule(Session);
