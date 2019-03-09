@@ -6,6 +6,7 @@ import { ILoginInformation } from "@/core/interfaces/ISession";
 import User from "@/core/entities/User";
 import accountService from "@/services/services/AccountService";
 import { IUserLoginResult } from "@/core/interfaces/IUserLoginResult";
+import router from "@/router/router";
 
 @Module({ dynamic: true, store, name: "session" })
 export default class Session extends VuexModule {
@@ -16,6 +17,12 @@ export default class Session extends VuexModule {
   // tslint:disable-next-line:typedef
   public async InitSession() {
     const currentSession: ILoginInformation = await sessionService.getLoginInformation();
+    if (!abp.auth.getToken()) {
+      router.replace({
+        name: "Login"
+      });
+    }
+
     return currentSession;
   }
 
