@@ -56,7 +56,7 @@
             </a>
             <v-card>
               <v-list dense>
-                <v-list-tile @click="toggleLogoutDialog()">
+                <v-list-tile @click.stop="toggleLogoutDialog()">
                   <v-list-tile-title>Logout</v-list-tile-title>
                 </v-list-tile>
               </v-list>
@@ -65,13 +65,13 @@
         </v-flex>
       </v-toolbar-items>
     </v-toolbar>
-    <v-dialog v-model="showLogoutDialog" @keydown.esc="toggleLogoutDialog()" max-width="290">
+    <v-dialog v-model="showLogoutDialog" @keydown.esc="toggleLogoutDialog()" width="500">
       <v-card>
         <v-card-title>Are you sure you want to logout?</v-card-title>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="error" flat="flat" @click="toggleLogoutDialog()">No</v-btn>
-          <v-btn color="primary" flat="flat" @click="logout()">Yes</v-btn>
+          <v-btn color="error" @click="toggleLogoutDialog()">No</v-btn>
+          <v-btn color="primary" @click="logout()">Yes</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
