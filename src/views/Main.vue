@@ -1,11 +1,11 @@
 <template>
-  <v-content>
-    <div id="core-view">
-      <v-fade-transition mode="out-in">
-        <router-view/>
-      </v-fade-transition>
-    </div>
-  </v-content>
+  <div>
+    <core-toolbar/>
+
+    <core-drawer/>
+
+    <core-view/>
+  </div>
 </template>
 
 <script lang="ts">
