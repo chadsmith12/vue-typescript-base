@@ -6,7 +6,7 @@
           <v-btn v-if="responsive" class="default v-btn--simple" dark icon @click.stop="onClickBtn">
             <v-icon>mdi-view-list</v-icon>
           </v-btn>
-          {{ title }}
+          {{ currentPage }}
         </v-toolbar-title>
       </div>
 
@@ -82,6 +82,7 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { SessionModule } from "@/store/modules/session";
 import { AppModule } from "@/store/modules/app";
+import { IRouter } from "@/router/router-entities/IRouter";
 
 @Component({})
 export default class Toolbar extends Vue {
@@ -93,14 +94,12 @@ export default class Toolbar extends Vue {
     "Another One"
   ];
 
-  title: string = "";
   responsive: boolean = false;
   responsiveInput: boolean = false;
   showLogoutDialog: boolean = false;
 
-  @Watch("$route")
-  onRouteChanged(val: any) {
-    this.title = val.name;
+  get currentPage() {
+    return this.$route.name;
   }
 
   onClickBtn() {

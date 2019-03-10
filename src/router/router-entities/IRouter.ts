@@ -5,6 +5,7 @@ export interface IRouterMeta {
 export interface IRouter {
   path: string;
   name?: string;
+  redirect?: string;
   icon?: string;
   permission?: string;
   meta?: IRouterMeta;
