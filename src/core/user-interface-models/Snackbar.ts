@@ -8,6 +8,11 @@ export default class SnackbarMessage implements ISnackbar {
   message: string = "";
   isShown: boolean = false;
 
+  constructor(snackBarType: SnackbarType, message: string) {
+    this.snackBarType = snackBarType;
+    this.message = message;
+  }
+
   /**
    * returns the color needed for the snackboard based off the snack bar type.
    */

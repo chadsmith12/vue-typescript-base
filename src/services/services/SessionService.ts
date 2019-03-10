@@ -7,7 +7,12 @@ import { AxiosResponse } from "axios";
 class SessionService implements ISessionService {
   async getLoginInformation(): Promise<ILoginInformation> {
     const response: AxiosResponse = await ajax.get(
-      "/api/services/app/Session/GetCurrentLoginInformations"
+      "/api/services/app/Session/GetCurrentLoginInformations",
+      {
+        headers: {
+          "Abp.TenantId": abp.multiTenancy.getTenantIdCookie()
+        }
+      }
     );
     const data: IAbpAjaxResult<ILoginInformation> = response.data;
     const loginInformation: ILoginInformation = data.result;

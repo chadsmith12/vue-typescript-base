@@ -71,6 +71,36 @@ export default class Session extends VuexModule {
   get applicationVersion(): string {
     return this.session.application.version;
   }
+
+  /**
+   * Gets the display name to show for the tenant during tenant switching
+   */
+  get tenantSwitchName(): string {
+    if (this.session.tenant === null || this.session.tenant.name === "") {
+      return "None Selected";
+    } else {
+      return this.session.tenant.name;
+    }
+  }
+
+  /**
+   * Gets the name of the current tenant in this session.
+   * Will be an empty string if the host tenant.
+   */
+  get tenantName(): string {
+    if (this.session.tenant === null) {
+      return "";
+    } else {
+      return this.session.tenant.name;
+    }
+  }
+
+  /**
+   * Gets if multi tenancy is currently enabled for the application
+   */
+  get isMultiTenancyEnabled(): boolean {
+    return abp.multiTenancy.isEnabled;
+  }
 }
 
 export const SessionModule: Session = getModule(Session);

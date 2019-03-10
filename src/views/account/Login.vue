@@ -1,9 +1,12 @@
 <template>
   <v-card class="elevation-12">
     <v-toolbar dark color="primary">
-      <v-toolbar-title>Login form</v-toolbar-title>
+      <v-toolbar-title>Login</v-toolbar-title>
     </v-toolbar>
     <v-card-text>
+      <p class="text-md-center" v-if="isMultiTenancyEnabled">
+        <TenantSwitch/>
+      </p>
       <v-form v-model="isFormValid">
         <v-text-field
           prepend-icon="person"
@@ -37,13 +40,19 @@ import { SessionModule } from "@/store/modules/session";
 import { SnackbarModule } from "@/store/modules/snackbar";
 import SnackbarMessage from "@/core/user-interface-models/Snackbar";
 import { SnackbarType } from "@/core/user-interface-models/ISnackbar";
+import TenantSwitch from "@/views/account/TenantSwitch.vue";
 
-@Component({})
+@Component({
+  components: {
+    TenantSwitch
+  }
+})
 export default class Login extends Vue {
   isFormValid: boolean = false;
   isFormSubmitting: boolean = false;
   username: string = "";
   password: string = "";
+  showTenantSwitch: boolean = false;
 
   get userNameRules() {
     return [(v: string) => !!v || "Username is required..."];
@@ -54,6 +63,14 @@ export default class Login extends Vue {
       (v: string) => !!v || "Please enter a password...",
       (v: string) => v.length >= 6 || "Password must be at least 8 characters"
     ];
+  }
+
+  get tenantName() {
+    return SessionModule.tenantSwitchName;
+  }
+
+  get isMultiTenancyEnabled() {
+    return SessionModule.isMultiTenancyEnabled;
   }
 
   handleLogin() {
@@ -70,9 +87,10 @@ export default class Login extends Vue {
           this.isFormSubmitting = false;
           this.isFormValid = false;
           this.password = "";
-          var snackbarMessage = new SnackbarMessage();
-          snackbarMessage.snackBarType = SnackbarType.Error;
-          snackbarMessage.message = error.message;
+          var snackbarMessage = new SnackbarMessage(
+            SnackbarType.Error,
+            error.message
+          );
           SnackbarModule.SHOW_SNACKBAR(snackbarMessage);
         });
     }

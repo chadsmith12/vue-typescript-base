@@ -1,10 +1,11 @@
 import store from "@/store/store";
 import { Module, VuexModule, Mutation, Action, getModule } from "vuex-module-decorators";
 import SnackbarMessage from "@/core/user-interface-models/Snackbar";
+import { SnackbarType } from "@/core/user-interface-models/ISnackbar";
 
 @Module({ dynamic: true, store, name: "snackbar" })
 export default class SnackBarState extends VuexModule {
-  public snackBar = new SnackbarMessage();
+  public snackBar = new SnackbarMessage(SnackbarType.Success, "");
 
   /**
    * Shows a snackbar to the user of the type and message passed in.

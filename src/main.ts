@@ -32,8 +32,8 @@ new Vue({
     const userConfig: Promise<any> = userConfigService.getUserConfiguration();
     const initSession: Promise<ILoginInformation> = SessionModule.InitSession();
     const userConfigData: any = await userConfig;
-    await initSession;
     Util.abp = Util.extend(true, Util.abp, userConfigData.result);
+    await initSession;
   },
   render: h => h(App)
 }).$mount("#app");
