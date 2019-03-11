@@ -24,6 +24,16 @@ export const appRoutes: Array<IRouter> = [
       requiresAuth: true,
       icon: "mdi-clipboard-outline"
     }
+  },
+  {
+    path: "/users",
+    name: "Users",
+    component: () => import("@/views/users/Users.vue"),
+    meta: {
+      title: "Users",
+      requiresAuth: true,
+      icon: "mdi-account-group"
+    }
   }
 ];
 
