@@ -21,11 +21,18 @@
         <v-list-tile v-if="responsive">
           <v-text-field class="purple-input search-input" label="Search..." color="purple"/>
         </v-list-tile>
-        <v-list-tile to="/about" active-class="success" avatar class="v-list-item">
-          <v-list-tile-action>
-            <v-icon>mdi-clipboard-outline</v-icon>
+        <v-list-tile
+          v-for="navigationItem in navigationItems"
+          :key="navigationItem.name"
+          :to="navigationItem.path"
+          active-class="success"
+          avatar
+          class="v-list-item"
+        >
+          <v-list-tile-action v-if="navigationItem.meta.icon">
+            <v-icon>{{ navigationItem.meta.icon }}</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title text="About">About</v-list-tile-title>
+          <v-list-tile-title>{{ navigationItem.meta.title }}</v-list-tile-title>
         </v-list-tile>
       </v-layout>
     </v-img>
@@ -40,6 +47,10 @@ import { AppModule } from "@/store/modules/app";
 export default class Drawer extends Vue {
   logo: string = "./img/vuetifylogo.png";
   responsive: boolean = false;
+
+  get navigationItems() {
+    return AppModule.navigation.MenuItems;
+  }
 
   get bgImage() {
     return AppModule.drawerBgImage;

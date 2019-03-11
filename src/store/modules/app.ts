@@ -1,14 +1,18 @@
 import { VuexModule, Module, Mutation, Action, getModule } from "vuex-module-decorators";
 import store from "@/store/store";
+import NavigationModel from "@/models/navigation/NavigationModel";
+import { appRoutes } from "@/router/app-routes";
 
 export interface IAppState {
   drawer: boolean | null;
   drawerBgImage: string;
   isRouting: boolean;
+  navigation: NavigationModel;
 }
 
 @Module({ dynamic: true, store, name: "app" })
 class AppState extends VuexModule implements IAppState {
+  navigation: NavigationModel = new NavigationModel(appRoutes);
   drawer: boolean | null = null;
   drawerBgImage: string =
     "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-2.32103624.jpg";
