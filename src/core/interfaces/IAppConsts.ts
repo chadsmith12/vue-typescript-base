@@ -22,4 +22,8 @@ export interface IAppConsts {
    * The name of the cookie to use for localization.
    */
   localizationCookieName: string;
+  /**
+   * The name of the application
+   */
+  appName: string;
 }

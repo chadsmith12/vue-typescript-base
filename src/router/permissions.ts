@@ -1,32 +1,35 @@
 import router from "@/router/router";
 import { Route } from "vue-router";
 import { AppModule } from "@/store/modules/app";
+import appconsts from "@/lib/appconsts";
 
 // defines the routes that are whitelisted, that we can get to without authenticating
 const whiteList: Array<string> = ["/login"];
 
 router.beforeEach((to: Route, from: Route, next: any) => {
-  next();
-  // allow anything right now...
-  //   next();
-  //   const token: string = abp.auth.getToken();
-  //   // first check to see if the user is logged in
-  //   if (token !== null && token !== "") {
-  //     // are we trying to access the login page? just go back home
-  //     if (to.path === "/login") {
-  //       next({ path: "/" });
-  //     } else {
-  //       // todo: check for permissions here
-  //       // right now just go ahead
-  //       next();
-  //     }
-  //   } else {
-  //     // are we allowed to enter this path not logged in?
-  //     if (whiteList.indexOf(to.path) !== -1) {
-  //       next();
-  //     } else {
-  //       // redirect user to login page.
-  //       next("/login");
-  //     }
-  //   }
+  const requiresAuth: boolean = to.matched.some(record => record.meta.requiresAuth);
+
+  AppModule.pendingRoute();
+
+  //  the route doesn't require authentication, just let it go on
+  if (!requiresAuth) {
+    next();
+  } else {
+    // we know the route requires authentication
+    // if we don't have a user then redirect back to login
+    if (abp.auth.getToken() === "") {
+      next({
+        name: "Login",
+        query: {
+          redirect: to.fullPath
+        }
+      });
+    } else {
+      next();
+    }
+  }
+
+  AppModule.routeCompleted();
+
+  document.title = appconsts.AppConsts.appName;
 });

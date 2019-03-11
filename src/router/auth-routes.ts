@@ -11,6 +11,7 @@ export const authRouter: IRouter = {
     }
   ],
   meta: {
-    title: "Login"
+    title: "Login",
+    requiresAuth: false
   }
 };

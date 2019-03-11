@@ -1,13 +1,14 @@
 <template>
   <v-card class="elevation-12">
-    <v-toolbar dark color="primary">
-      <v-toolbar-title>Login</v-toolbar-title>
-    </v-toolbar>
-    <v-card-text>
-      <p class="text-md-center" v-if="isMultiTenancyEnabled">
-        <TenantSwitch/>
-      </p>
-      <v-form v-model="isFormValid">
+    <v-form v-model="isFormValid">
+      <v-toolbar dark color="primary">
+        <v-toolbar-title>Login</v-toolbar-title>
+      </v-toolbar>
+      <v-card-text>
+        <p class="text-md-center" v-if="isMultiTenancyEnabled">
+          <TenantSwitch/>
+        </p>
+
         <v-text-field
           prepend-icon="person"
           name="login"
@@ -25,12 +26,17 @@
           v-model="password"
           :rules="passwordRules"
         ></v-text-field>
-      </v-form>
-    </v-card-text>
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn color="primary" :disabled="!isFormValid || isFormSubmitting" @click="handleLogin">Login</v-btn>
-    </v-card-actions>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn
+          type="submit"
+          color="primary"
+          :disabled="!isFormValid || isFormSubmitting"
+          @click="handleLogin"
+        >Login</v-btn>
+      </v-card-actions>
+    </v-form>
   </v-card>
 </template>
 
@@ -70,29 +76,27 @@ export default class Login extends Vue {
   }
 
   get isMultiTenancyEnabled() {
-    return SessionModule.isMultiTenancyEnabled;
+    return abp.multiTenancy.isEnabled;
   }
 
-  handleLogin() {
+  async handleLogin() {
     if (this.isFormValid) {
       this.isFormSubmitting = true;
 
-      SessionModule.Login({ username: this.username, password: this.password })
-        .then(response => {
-          this.$router.replace({
-            name: "Home"
-          });
-        })
-        .catch(error => {
-          this.isFormSubmitting = false;
-          this.isFormValid = false;
-          this.password = "";
-          var snackbarMessage = new SnackbarMessage(
-            SnackbarType.Error,
-            error.message
-          );
-          SnackbarModule.SHOW_SNACKBAR(snackbarMessage);
+      try {
+        await SessionModule.Login({
+          username: this.username,
+          password: this.password
         });
+        this.$router.replace({
+          name: "Home"
+        });
+        await SessionModule.InitSession();
+      } catch (error) {
+        this.isFormSubmitting = false;
+        this.isFormValid = false;
+        this.password = "";
+      }
     }
   }
 }
