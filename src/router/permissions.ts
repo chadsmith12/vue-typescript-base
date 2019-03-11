@@ -31,5 +31,5 @@ router.beforeEach((to: Route, from: Route, next: any) => {
 
   AppModule.routeCompleted();
 
-  document.title = appconsts.AppConsts.appName;
+  document.title = `${appconsts.AppConsts.appName}-${to.meta.title}`;
 });
