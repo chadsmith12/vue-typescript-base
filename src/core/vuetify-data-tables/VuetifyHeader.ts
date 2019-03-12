@@ -1,10 +1,10 @@
 export class VuetifyHeader {
   text: string = "";
   value: string = "";
-  align: Align = Align.left;
-  sortable: boolean = true;
-  class: string[] | string = "";
-  width: string = "";
+  align?: Align;
+  sortable?: boolean = true;
+  class?: string[] | string;
+  width?: string;
 }
 
 export enum Align {

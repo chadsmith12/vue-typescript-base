@@ -6,29 +6,22 @@ export default class UsersModel {
     {
       text: "First Name",
       value: "fullName",
-      align: Align.left,
-      sortable: true,
-      class: "",
-      width: ""
+      align: Align.left
     },
     {
       text: "Username",
-      value: "userName",
-      align: Align.left,
-      sortable: true,
-      class: "",
-      width: ""
+      value: "userName"
     },
     {
       text: "Email Address",
-      value: "emailAddress",
-      align: Align.left,
-      sortable: true,
-      class: "",
-      width: ""
+      value: "emailAddress"
+    },
+    {
+      text: "Actions",
+      value: "id",
+      sortable: false
     }
   ];
 
   users: Array<UserDto> = new Array<UserDto>();
-  isLoadingUsers: boolean = true;
 }

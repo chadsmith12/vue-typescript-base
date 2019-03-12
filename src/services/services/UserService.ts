@@ -12,6 +12,13 @@ class UserService implements IUserService {
 
     return users.result;
   }
+
+  async updateUser(user: UserDto): Promise<UserDto> {
+    const response: AxiosResponse = await ajax.put("/api/services/app/User/Update", user);
+    const updatedUser: IAbpAjaxResult<UserDto> = response.data;
+
+    return updatedUser.result;
+  }
 }
 
 const userService: UserService = new UserService();
