@@ -1,5 +1,6 @@
 import { IRouter } from "@/router/router-entities/IRouter";
 import MainLayout from "@/views/Main.vue";
+import SimplePermissionChecker from "@/core/permission-checker/SimplePermissionChecker";
 
 export const appRoutes: Array<IRouter> = [
   {
@@ -32,7 +33,8 @@ export const appRoutes: Array<IRouter> = [
     meta: {
       title: "Users",
       requiresAuth: true,
-      icon: "mdi-account-group"
+      icon: "mdi-account-group",
+      permissionChecker: new SimplePermissionChecker(["Pages.Users"])
     }
   }
 ];

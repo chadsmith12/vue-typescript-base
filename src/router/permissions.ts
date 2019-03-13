@@ -25,7 +25,11 @@ router.beforeEach((to: Route, from: Route, next: any) => {
         }
       });
     } else {
-      next();
+      if (to.meta.permissionChecker === undefined) {
+        next();
+      } else if (to.meta.permissionChecker.isAuthenticated()) {
+        next();
+      }
     }
   }
 
