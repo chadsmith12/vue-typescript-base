@@ -67,7 +67,7 @@ export default class Login extends Vue {
   get passwordRules() {
     return [
       (v: string) => !!v || "Please enter a password...",
-      (v: string) => v.length >= 6 || "Password must be at least 8 characters"
+      (v: string) => v.length >= 6 || "Password must be at least 6 characters"
     ];
   }
 

@@ -18,9 +18,14 @@
             </td>
           </template>
         </v-data-table>
+        <v-fab-transition>
+          <v-btn @click="createUser" color="primary" dark absolute top right small fab>
+            <v-icon>add</v-icon>
+          </v-btn>
+        </v-fab-transition>
       </v-flex>
-
       <UserModal v-model="showUserModal" @save-changes="updateUser"/>
+      <CreateUserModal v-model="showCreateUser" @save-changes="userCreated"/>
     </v-layout>
   </v-container>
 </template>
@@ -31,15 +36,18 @@ import UserDto from "@/core/entities/User/UserDto";
 import UsersModel from "@/models/users/UsersModel";
 import { UserModule } from "@/store/modules/users";
 import UserModal from "@/views/users/UserModal.vue";
+import CreateUserModal from "@/views/users/CreateUserModal.vue";
 
 @Component({
   components: {
-    UserModal
+    UserModal,
+    CreateUserModal
   }
 })
 export default class Users extends Vue {
   userModel: UsersModel = new UsersModel();
   showUserModal: boolean = false;
+  showCreateUser: boolean = false;
 
   async mounted() {
     await this.getUsers();
@@ -56,9 +64,18 @@ export default class Users extends Vue {
     UserModule.SET_LOADING_USERS(false);
   }
 
+  createUser() {
+    UserModule.SET_CREATE_USER();
+    this.showCreateUser = !this.showCreateUser;
+  }
+
   editUser(user: UserDto) {
     UserModule.SET_EDITED_USER(user);
     this.toggleUserModal();
+  }
+
+  userCreated(user: UserDto) {
+    this.getUsers();
   }
 
   updateUser(user: UserDto) {
