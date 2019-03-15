@@ -24,15 +24,20 @@ router.beforeEach((to: Route, from: Route, next: any) => {
           redirect: to.fullPath
         }
       });
-    } else {
-      if (to.meta.permissionChecker === undefined) {
-        next();
-      } else if (to.meta.permissionChecker.isAuthenticated()) {
-        next();
-      }
+    } else if (
+      to.meta.permissionChecker !== undefined &&
+      !to.meta.permissionChecker.isAuthenticated
+    ) {
+      next({
+        name: "Login",
+        query: {
+          redirect: to.fullPath
+        }
+      });
     }
   }
 
+  next();
   AppModule.routeCompleted();
 
   document.title = `${appconsts.AppConsts.appName}-${to.meta.title}`;

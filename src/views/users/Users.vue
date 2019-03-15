@@ -24,8 +24,9 @@
           </v-btn>
         </v-fab-transition>
       </v-flex>
-      <UserModal v-model="showUserModal" @save-changes="updateUser"/>
-      <CreateUserModal v-model="showCreateUser" @save-changes="userCreated"/>
+      <!-- <UserModal v-model="showUserModal" @save-changes="updateUser"/> -->
+      <!-- <CreateUserModal v-model="showCreateUser" @save-changes="userCreated"/> -->
+      <Modal v-model="showCreateUser" title="Create" @save-click="createUser"></Modal>
     </v-layout>
   </v-container>
 </template>
@@ -65,7 +66,7 @@ export default class Users extends Vue {
   }
 
   createUser() {
-    UserModule.SET_CREATE_USER();
+    //UserModule.SET_CREATE_USER();
     this.showCreateUser = !this.showCreateUser;
   }
 
