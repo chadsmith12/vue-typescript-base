@@ -9,6 +9,7 @@ export default class SimplePermissionChecker implements IPermissionDependency {
     this.permissions = requiredPermissions;
   }
   isAuthenticated(): boolean {
+    console.log(abp.auth.allPermissions);
     return abp.auth.areAllGranted(...this.permissions);
   }
 }
