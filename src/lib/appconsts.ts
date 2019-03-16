@@ -12,7 +12,8 @@ const AppConsts: IAppConsts = {
   },
   appBaseUrl: "http://localhost:8082",
   remoteServiceBaseUrl: "http://localhost:21021/",
-  localizationCookieName: "Localization.CultureName"
+  localizationCookieName: "Localization.CultureName",
+  appName: "App Name"
 };
 
 export default { AppConsts };
