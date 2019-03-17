@@ -16,4 +16,4 @@ Below is a list of the main technology and frameworks that this project was buil
 ---
 
 **Special Thanks**
-Specials thanks to creative-tim for providing the easy to use [Vuetify Material Dashboard](https://www.creative-tim.com/product/vuetify-material-dashboard). The base styling of the project and layout are based off this template.
+Special thanks to creative-tim for providing the easy to use [Vuetify Material Dashboard](https://www.creative-tim.com/product/vuetify-material-dashboard). The base styling of the project and layout are based off this template.
