@@ -28,7 +28,7 @@ new Vue({
   router,
   store,
   // tslint:disable-next-line:typedef
-  async mounted() {
+  async created() {
     const userConfig: Promise<any> = userConfigService.getUserConfiguration();
     const initSession: Promise<ILoginInformation> = SessionModule.InitSession();
     const userConfigData: any = await userConfig;

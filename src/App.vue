@@ -10,11 +10,7 @@ import { Component, Vue } from "vue-property-decorator";
 import { AppModule } from "@/store/modules/app";
 
 @Component({})
-export default class App extends Vue {
-  get isRouting() {
-    return AppModule.isRouting;
-  }
-}
+export default class App extends Vue {}
 </script>
 
 <style lang="scss">
