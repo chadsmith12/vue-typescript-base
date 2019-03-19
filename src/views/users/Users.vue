@@ -26,7 +26,58 @@
       </v-flex>
       <!-- <UserModal v-model="showUserModal" @save-changes="updateUser"/> -->
       <!-- <CreateUserModal v-model="showCreateUser" @save-changes="userCreated"/> -->
-      <Modal v-model="showCreateUser" title="Create" @save-click="createUser"></Modal>
+      <Modal
+        v-model="showUserModal"
+        :title="formTitle"
+        @save-click="createUser"
+        @esc-press="toggleUserModal"
+        max-width="600"
+      >
+        <v-container fluid>
+          <v-layout>
+            <v-flex xs6>
+              <v-text-field label="Username *" required></v-text-field>
+            </v-flex>
+            <v-flex xs6>
+              <v-text-field label="Email *" required></v-text-field>
+            </v-flex>
+          </v-layout>
+          <v-layout>
+            <v-flex xs6>
+              <v-text-field label="First Name *" required></v-text-field>
+            </v-flex>
+            <v-flex xs6>
+              <v-text-field label="Last Name *" required></v-text-field>
+            </v-flex>
+          </v-layout>
+          <v-layout>
+            <v-flex xs6>
+              <v-text-field label="Password *" required></v-text-field>
+            </v-flex>
+            <v-flex xs6>
+              <v-text-field label="Confirm Password *" required></v-text-field>
+            </v-flex>
+          </v-layout>
+          <v-layout>
+            <v-flex xs6>
+              <v-select
+                multiple
+                chips
+                hint="Select User Roles"
+                label="User Roles"
+                :items="userRoles"
+                item-value="name"
+                item-text="displayName"
+              ></v-select>
+            </v-flex>
+          </v-layout>
+          <v-layout>
+            <v-flex xs6>
+              <v-checkbox label="Is Active" required></v-checkbox>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </Modal>
     </v-layout>
   </v-container>
 </template>
@@ -38,24 +89,30 @@ import UsersModel from "@/models/users/UsersModel";
 import { UserModule } from "@/store/modules/users";
 import UserModal from "@/views/users/UserModal.vue";
 import CreateUserModal from "@/views/users/CreateUserModal.vue";
+import { AppModule } from "@/store/modules/app";
 
 @Component({
-  components: {
-    UserModal,
-    CreateUserModal
-  }
+  components: {}
 })
 export default class Users extends Vue {
   userModel: UsersModel = new UsersModel();
   showUserModal: boolean = false;
-  showCreateUser: boolean = false;
+
+  get formTitle(): string {
+    return UserModule.formTitle;
+  }
 
   async mounted() {
     await this.getUsers();
+    await UserModule.getRoles();
   }
 
   get isLoading() {
     return UserModule.isLoadingUsers;
+  }
+
+  get userRoles() {
+    return UserModule.roles;
   }
 
   async getUsers() {
@@ -66,8 +123,8 @@ export default class Users extends Vue {
   }
 
   createUser() {
-    //UserModule.SET_CREATE_USER();
-    this.showCreateUser = !this.showCreateUser;
+    UserModule.SET_CREATE_USER();
+    this.toggleUserModal();
   }
 
   editUser(user: UserDto) {

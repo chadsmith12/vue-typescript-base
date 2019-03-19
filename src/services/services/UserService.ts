@@ -5,6 +5,8 @@ import ajax from "@/lib/ajax";
 import { AxiosResponse } from "axios";
 import IAbpAjaxResult from "@/core/interfaces/IAbpAjaxResult";
 import CreateUserDto from "@/core/entities/User/CreateUserDto";
+import ListResultDto from "@/core/entities/ListResultDto";
+import RoleDto from "@/core/entities/Roles/RoleDto";
 
 class UserService implements IUserService {
   async getAllUsers(): Promise<PagedResultDto<UserDto>> {
@@ -26,6 +28,13 @@ class UserService implements IUserService {
     const updatedUser: IAbpAjaxResult<UserDto> = response.data;
 
     return updatedUser.result;
+  }
+
+  async getRoles(): Promise<ListResultDto<RoleDto>> {
+    const response: AxiosResponse = await ajax.get("/api/services/app/User/GetRoles");
+    const roles: IAbpAjaxResult<ListResultDto<RoleDto>> = response.data;
+
+    return roles.result;
   }
 }
 

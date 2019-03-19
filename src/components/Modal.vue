@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="isOpen">
+  <v-dialog v-model="isOpen" :max-width="maxWidth" @keydown.esc="onEsc">
     <v-card>
       <v-card-title>{{modalTitle}}</v-card-title>
       <v-card-text>
@@ -23,6 +23,8 @@ export default class Modal extends Vue {
   title!: string;
   @Prop({ type: Boolean, default: false })
   readonly value!: boolean;
+  @Prop({ type: [String, Number], default: "" })
+  readonly maxWidth!: string | number;
 
   get modalTitle() {
     return this.title;
@@ -44,6 +46,11 @@ export default class Modal extends Vue {
 
   @Emit("save-click")
   onSave() {
+    return;
+  }
+
+  @Emit("esc-press")
+  onEsc() {
     return;
   }
 }
