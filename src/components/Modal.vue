@@ -7,7 +7,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="error">Cancel</v-btn>
+        <v-btn color="error" @click="isOpen = false">Cancel</v-btn>
         <v-btn color="primary" @click="onSave">Save</v-btn>
       </v-card-actions>
     </v-card>

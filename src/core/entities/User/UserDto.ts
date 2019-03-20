@@ -2,7 +2,7 @@ export default class UserDto {
   id: number = 0;
   userName: string = "";
   name: string = "";
-  surName: string = "";
+  surname: string = "";
   emailAddress: string = "";
   isActive: boolean = false;
   lastLoginTime?: Date;
@@ -10,6 +10,6 @@ export default class UserDto {
   roleNames: Array<string> = new Array<string>();
 
   get fullName(): string {
-    return `${name} ${this.surName}`;
+    return `${name} ${this.surname}`;
   }
 }

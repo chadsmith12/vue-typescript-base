@@ -34,7 +34,10 @@ import { Component, Vue } from "vue-property-decorator";
 import UserDto from "@/core/entities/User/UserDto";
 import UsersModel from "@/models/users/UsersModel";
 import { UserModule } from "@/store/modules/users";
+import { SnackbarModule } from "@/store/modules/snackbar";
 import UserModal from "@/views/users/UserModal.vue";
+import SnackbarMessage from "@/core/user-interface-models/Snackbar";
+import { SnackbarType } from "@/core/user-interface-models/ISnackbar";
 
 @Component({
   components: {
@@ -73,6 +76,10 @@ export default class Users extends Vue {
 
   saveUser() {
     this.getUsers();
+    SnackbarModule.SHOW_SNACKBAR(
+      new SnackbarMessage(SnackbarType.Success, "Save Successful!")
+    );
+    this.toggleUserModal();
   }
 
   toggleUserModal() {

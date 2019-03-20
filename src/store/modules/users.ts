@@ -12,7 +12,6 @@ import ListResultDto from "@/core/entities/ListResultDto";
 class UserState extends VuexModule {
   isLoadingUsers: boolean = true;
   editedUser: UserModalViewModel = new UserModalViewModel();
-  createdUser: CreateUserDto = new CreateUserDto();
   formTitle: string = "";
   roles: Array<RoleDto> = [];
 
@@ -29,13 +28,29 @@ class UserState extends VuexModule {
   }
 
   @Action
-  createUser(user: CreateUserDto): Promise<UserDto> {
-    return userService.createUser(user);
+  createUser(user: UserModalViewModel): Promise<UserDto> {
+    const createdUser: CreateUserDto = new CreateUserDto();
+    createdUser.emailAddress = user.emailAddress;
+    createdUser.isActive = user.isActive;
+    createdUser.name = user.firstName;
+    createdUser.surname = user.lastName;
+    createdUser.password = user.password;
+    createdUser.roleNames = user.userRoles;
+    return userService.createUser(createdUser);
   }
 
   @Action
-  updateUser(user: UserDto): Promise<UserDto> {
-    return userService.updateUser(user);
+  updateUser(user: UserModalViewModel): Promise<UserDto> {
+    const updatedUser: UserDto = new UserDto();
+    updatedUser.id = user.id;
+    updatedUser.userName = user.userName;
+    updatedUser.name = user.firstName;
+    updatedUser.surname = user.lastName;
+    updatedUser.emailAddress = user.emailAddress;
+    updatedUser.isActive = user.isActive;
+    updatedUser.roleNames = user.userRoles;
+
+    return userService.updateUser(updatedUser);
   }
 
   @Action({ commit: "SET_ROLES" })
@@ -58,8 +73,7 @@ class UserState extends VuexModule {
 
   @Mutation
   SET_CREATE_USER(): void {
-    this.editedUser.resetModel();
-    this.editedUser.roles = this.roles;
+    this.editedUser = new UserModalViewModel();
     this.formTitle = "Create User";
   }
 

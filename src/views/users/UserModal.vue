@@ -6,48 +6,87 @@
     @esc-press="onEscPressed"
     max-width="600"
   >
-    <v-container fluid>
-      <v-layout>
-        <v-flex xs6>
-          <v-text-field label="Username *" required v-model="currentUser.userName"></v-text-field>
-        </v-flex>
-        <v-flex xs6>
-          <v-text-field label="Email *" required v-model="currentUser.emailAddress"></v-text-field>
-        </v-flex>
-      </v-layout>
-      <v-layout>
-        <v-flex xs6>
-          <v-text-field label="First Name *" required v-model="currentUser.firstName"></v-text-field>
-        </v-flex>
-        <v-flex xs6>
-          <v-text-field label="Last Name *" required v-model="currentUser.lastName"></v-text-field>
-        </v-flex>
-      </v-layout>
-      <v-layout v-if="currentUser.id === 0">
-        <v-flex xs6>
-          <v-text-field label="Password *" required v-model="currentUser.password"></v-text-field>
-        </v-flex>
-        <v-flex xs6>
-          <v-text-field label="Confirm Password *" required v-model="currentUser.confirmPassword"></v-text-field>
-        </v-flex>
-      </v-layout>
-      <v-layout>
-        <v-flex xs6>
-          <v-select
-            multiple
-            chips
-            hint="Select User Roles"
-            label="User Roles"
-            :items="currentUser.roles"
-          ></v-select>
-        </v-flex>
-      </v-layout>
-      <v-layout>
-        <v-flex xs6>
-          <v-checkbox label="Is Active" required></v-checkbox>
-        </v-flex>
-      </v-layout>
-    </v-container>
+    <v-form
+      v-if="showUserModal"
+      v-model="currentUser.isModelValid"
+      ref="userForm"
+      :lazy-validation="true"
+    >
+      <v-container fluid>
+        <v-layout>
+          <v-flex xs6>
+            <v-text-field
+              label="Username *"
+              :validate-on-blur="true"
+              required
+              v-model="currentUser.userName"
+              :rules="currentUser.isRequiredRules"
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs6>
+            <v-text-field
+              label="Email *"
+              required
+              v-model="currentUser.emailAddress"
+              :rules="currentUser.emailRules"
+            ></v-text-field>
+          </v-flex>
+        </v-layout>
+        <v-layout>
+          <v-flex xs6>
+            <v-text-field
+              label="First Name *"
+              required
+              v-model="currentUser.firstName"
+              :rules="currentUser.isRequiredRules"
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs6>
+            <v-text-field
+              label="Last Name *"
+              required
+              v-model="currentUser.lastName"
+              :rules="currentUser.isRequiredRules"
+            ></v-text-field>
+          </v-flex>
+        </v-layout>
+        <v-layout v-if="currentUser.isNewUser">
+          <v-flex xs6>
+            <v-text-field
+              label="Password *"
+              required
+              v-model="currentUser.password"
+              :rules="currentUser.passwordRules"
+            ></v-text-field>
+          </v-flex>
+          <v-flex xs6>
+            <v-text-field
+              label="Confirm Password *"
+              required
+              v-model="currentUser.confirmPassword"
+              :rules="currentUser.confirmPasswordRules"
+            ></v-text-field>
+          </v-flex>
+        </v-layout>
+        <v-layout>
+          <v-flex xs6>
+            <v-select
+              multiple
+              chips
+              hint="Select User Roles"
+              label="User Roles"
+              :items="currentUser.roleSelectList"
+              v-model="currentUser.userRoles"
+            ></v-select>
+          </v-flex>
+        </v-layout>
+        <v-layout>
+          <v-flex xs6>
+            <v-checkbox label="Is Active" required v-model="currentUser.isActive"></v-checkbox>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-form>
   </Modal>
 </template>
 
@@ -73,6 +112,9 @@ export default class UserModal extends Vue {
     return this.value;
   }
   set showUserModal(newVal: boolean) {
+    if (newVal) {
+      (this.$refs.userForm as any).reset();
+    }
     this.onValueChange(newVal);
   }
 
@@ -81,7 +123,7 @@ export default class UserModal extends Vue {
     return newVal;
   }
 
-  @Emit("save-click")
+  @Emit("save-changes")
   userSaved() {
     return;
   }
@@ -90,8 +132,17 @@ export default class UserModal extends Vue {
     this.onValueChange(false);
   }
 
-  saveUser() {
+  async saveUser() {
+    if (!this.currentUser.isModelValid) return;
+
+    if (this.currentUser.isNewUser) {
+      await UserModule.createUser(this.currentUser);
+    } else {
+      await UserModule.updateUser(this.currentUser);
+    }
+
     this.userSaved();
+    this.onValueChange(false);
   }
 }
 </script>
