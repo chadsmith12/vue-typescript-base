@@ -1,4 +1,5 @@
 export default class UserDto {
+  id: number = 0;
   userName: string = "";
   name: string = "";
   surName: string = "";

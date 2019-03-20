@@ -1,23 +1,17 @@
-import {
-  VuexModule,
-  Module,
-  Mutation,
-  Action,
-  getModule,
-  MutationAction
-} from "vuex-module-decorators";
+import { VuexModule, Module, Mutation, Action, getModule } from "vuex-module-decorators";
 import store from "@/store/store";
 import userService from "@/services/services/UserService";
 import PagedResultDto from "@/core/entities/pagination/PagedResultDto";
 import UserDto from "@/core/entities/User/UserDto";
 import CreateUserDto from "@/core/entities/User/CreateUserDto";
+import UserModalViewModel from "@/models/users/UserModalViewModel";
 import RoleDto from "@/core/entities/Roles/RoleDto";
 import ListResultDto from "@/core/entities/ListResultDto";
 
 @Module({ dynamic: true, store, name: "users" })
 class UserState extends VuexModule {
   isLoadingUsers: boolean = true;
-  editedUser: UserDto = new UserDto();
+  editedUser: UserModalViewModel = new UserModalViewModel();
   createdUser: CreateUserDto = new CreateUserDto();
   formTitle: string = "";
   roles: Array<RoleDto> = [];
@@ -58,12 +52,14 @@ class UserState extends VuexModule {
 
   @Mutation
   SET_EDITED_USER(user: UserDto): void {
-    this.editedUser = user;
+    this.editedUser.setUser(user, this.roles);
     this.formTitle = "Edit User";
   }
 
   @Mutation
   SET_CREATE_USER(): void {
+    this.editedUser.resetModel();
+    this.editedUser.roles = this.roles;
     this.formTitle = "Create User";
   }
 
