@@ -17,6 +17,7 @@ class AppState extends VuexModule implements IAppState {
   drawerBgImage: string =
     "https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-2.32103624.jpg";
   isRouting: boolean = false;
+  isResponsive: boolean = false;
 
   @Action({ commit: "SET_ROUTING" })
   pendingRoute(): boolean {
@@ -40,6 +41,11 @@ class AppState extends VuexModule implements IAppState {
   @Mutation
   SET_ROUTING(isRouting: boolean): void {
     this.isRouting = isRouting;
+  }
+
+  @Mutation
+  SET_RESPONSIVE(isResponsive: boolean): void {
+    this.isResponsive = isResponsive;
   }
 }
 export const AppModule: AppState = getModule(AppState);

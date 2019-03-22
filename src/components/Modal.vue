@@ -1,5 +1,11 @@
 <template>
-  <v-dialog v-model="isOpen" :max-width="maxWidth" @keydown.esc="onEsc" lazy>
+  <v-dialog
+    v-model="isOpen"
+    :max-width="maxWidth"
+    @keydown.esc="onEsc"
+    lazy
+    :fullscreen="isResponsive"
+  >
     <v-card>
       <v-card-title>{{modalTitle}}</v-card-title>
       <v-card-text>
@@ -16,6 +22,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Emit } from "vue-property-decorator";
+import { AppModule } from "@/store/modules/app";
 
 @Component({})
 export default class Modal extends Vue {
@@ -40,6 +47,10 @@ export default class Modal extends Vue {
   }
   set isOpen(newVal) {
     this.onModalEvent(newVal);
+  }
+
+  get isResponsive() {
+    return AppModule.isResponsive;
   }
 
   // input event to get emitted when modal open and closes

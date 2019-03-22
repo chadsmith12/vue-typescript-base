@@ -69,6 +69,8 @@ export default class Drawer extends Vue {
     } else {
       this.responsive = false;
     }
+
+    AppModule.SET_RESPONSIVE(this.responsive);
   }
 
   mounted() {
