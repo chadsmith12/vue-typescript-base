@@ -36,6 +36,13 @@ class UserService implements IUserService {
 
     return roles.result;
   }
+
+  async deleteUser(userId: number): Promise<any> {
+    const url: string = "/api/services/app/User/Delete?id=" + userId;
+    await ajax.delete(url);
+
+    return;
+  }
 }
 
 const userService: UserService = new UserService();

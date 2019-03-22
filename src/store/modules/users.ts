@@ -30,6 +30,7 @@ class UserState extends VuexModule {
   @Action
   createUser(user: UserModalViewModel): Promise<UserDto> {
     const createdUser: CreateUserDto = new CreateUserDto();
+    createdUser.userName = user.userName;
     createdUser.emailAddress = user.emailAddress;
     createdUser.isActive = user.isActive;
     createdUser.name = user.firstName;
@@ -58,6 +59,11 @@ class UserState extends VuexModule {
     const response: ListResultDto<RoleDto> = await userService.getRoles();
 
     return response.items;
+  }
+
+  @Action
+  deleteUser(userId: number): Promise<any> {
+    return userService.deleteUser(userId);
   }
 
   @Mutation

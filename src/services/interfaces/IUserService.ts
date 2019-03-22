@@ -12,4 +12,6 @@ export default interface IUserService {
   updateUser(user: UserDto): Promise<UserDto>;
 
   getRoles(): Promise<ListResultDto<RoleDto>>;
+
+  deleteUser(userId: number): Promise<any>;
 }

@@ -1,9 +1,16 @@
+function isNotUndefiend(value: any): boolean {
+  return typeof value !== "undefined";
+}
+
 /**
  * Checks to see that a string is actually not empty
  * @param value the string to check is not empty
  */
 function valueIsRequired(value: string): boolean {
-  return !!value;
+  if (isNotUndefiend(value)) {
+    return !!value;
+  }
+  return true;
 }
 
 /**
@@ -12,7 +19,11 @@ function valueIsRequired(value: string): boolean {
  * @param length the length we are checking against
  */
 function isValidLength(value: string, length: number): boolean {
-  return value.length >= length;
+  if (isNotUndefiend(value)) {
+    return value.length >= length;
+  }
+
+  return true;
 }
 
 /**
@@ -20,8 +31,12 @@ function isValidLength(value: string, length: number): boolean {
  * @param email The email to check is valid
  */
 function isEmailValid(email: string): boolean {
-  // allows for emails in format: _@_@._
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if (isNotUndefiend(email)) {
+    // allows for emails in format: _@_@._
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  return true;
 }
 
 /**

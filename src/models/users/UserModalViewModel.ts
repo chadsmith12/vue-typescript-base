@@ -5,15 +5,15 @@ import ValidationRules, { validationRule } from "@/lib/validation-helpers/valida
 
 export default class UserModalViewModel {
   id: number = 0;
-  userName: string = "";
-  emailAddress: string = "";
-  firstName: string = "";
-  lastName: string = "";
+  userName!: string;
+  emailAddress!: string;
+  firstName!: string;
+  lastName!: string;
   isActive: boolean = true;
-  password: string = "";
-  confirmPassword: string = "";
-  userRoles: Array<string> = [];
-  roleSelectList: Array<SelectListItem> = [];
+  password!: string;
+  confirmPassword!: string;
+  userRoles!: Array<string>;
+  roleSelectList!: Array<SelectListItem>;
 
   isModelValid: boolean = false;
 
@@ -22,9 +22,7 @@ export default class UserModalViewModel {
   }
 
   get isRequiredRules(): Array<validationRule> {
-    return [
-      (value: string) => ValidationRules.valueIsRequired(value) || "This field is required..."
-    ];
+    return [(value: string) => !!value || "This field is required..."];
   }
 
   get emailRules(): Array<validationRule> {

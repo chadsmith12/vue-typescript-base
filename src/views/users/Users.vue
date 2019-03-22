@@ -25,6 +25,11 @@
         </v-fab-transition>
       </v-flex>
       <UserModal v-model="showUserModal" @save-changes="saveUser"/>
+      <ConfirmationModal
+        v-model="showDeleteConfirmation"
+        message="Are you sure you want to delete this user?"
+        @confirmation-click="onDeleteConfirm"
+      />
     </v-layout>
   </v-container>
 </template>
@@ -46,7 +51,9 @@ import { SnackbarType } from "@/core/user-interface-models/ISnackbar";
 })
 export default class Users extends Vue {
   userModel: UsersModel = new UsersModel();
+  userDeleted!: UserDto;
   showUserModal: boolean = false;
+  showDeleteConfirmation: boolean = false;
 
   async mounted() {
     await this.getUsers();
@@ -84,6 +91,19 @@ export default class Users extends Vue {
 
   toggleUserModal() {
     this.showUserModal = !this.showUserModal;
+  }
+
+  deleteUser(user: UserDto) {
+    this.userDeleted = user;
+    this.showDeleteConfirmation = true;
+  }
+
+  async onDeleteConfirm(isConfirmed: boolean) {
+    if (isConfirmed) {
+      await UserModule.deleteUser(this.userDeleted.id);
+      this.getUsers();
+    }
+    this.showDeleteConfirmation = false;
   }
 }
 </script>

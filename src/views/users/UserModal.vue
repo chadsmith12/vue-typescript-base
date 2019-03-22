@@ -6,18 +6,12 @@
     @esc-press="onEscPressed"
     max-width="600"
   >
-    <v-form
-      v-if="showUserModal"
-      v-model="currentUser.isModelValid"
-      ref="userForm"
-      :lazy-validation="true"
-    >
+    <v-form v-model="currentUser.isModelValid" ref="userForm" :lazy-validation="true">
       <v-container fluid>
         <v-layout>
           <v-flex xs6>
             <v-text-field
               label="Username *"
-              :validate-on-blur="true"
               required
               v-model="currentUser.userName"
               :rules="currentUser.isRequiredRules"
@@ -54,6 +48,7 @@
           <v-flex xs6>
             <v-text-field
               label="Password *"
+              type="password"
               required
               v-model="currentUser.password"
               :rules="currentUser.passwordRules"
@@ -62,6 +57,7 @@
           <v-flex xs6>
             <v-text-field
               label="Confirm Password *"
+              type="password"
               required
               v-model="currentUser.confirmPassword"
               :rules="currentUser.confirmPasswordRules"
@@ -94,11 +90,18 @@
 import { Component, Vue, Prop, Emit } from "vue-property-decorator";
 import { UserModule } from "@/store/modules/users";
 import UserModalViewModel from "@/models/users/UserModalViewModel";
+import { SnackbarModule } from "@/store/modules/snackbar";
+import SnackbarMessage from "@/core/user-interface-models/Snackbar";
+import { SnackbarType } from "@/core/user-interface-models/ISnackbar";
 
 @Component({})
 export default class UserModal extends Vue {
   @Prop({ type: Boolean, default: false })
   readonly value!: boolean;
+
+  $refs!: {
+    userForm: any;
+  };
 
   get currentUser() {
     return UserModule.editedUser;
@@ -112,14 +115,12 @@ export default class UserModal extends Vue {
     return this.value;
   }
   set showUserModal(newVal: boolean) {
-    if (newVal) {
-      (this.$refs.userForm as any).reset();
-    }
     this.onValueChange(newVal);
   }
 
   @Emit("input")
   onValueChange(newVal: boolean) {
+    this.$refs.userForm.reset();
     return newVal;
   }
 
@@ -135,10 +136,20 @@ export default class UserModal extends Vue {
   async saveUser() {
     if (!this.currentUser.isModelValid) return;
 
-    if (this.currentUser.isNewUser) {
-      await UserModule.createUser(this.currentUser);
-    } else {
-      await UserModule.updateUser(this.currentUser);
+    try {
+      if (this.currentUser.isNewUser) {
+        await UserModule.createUser(this.currentUser);
+      } else {
+        await UserModule.updateUser(this.currentUser);
+      }
+    } catch (error) {
+      SnackbarModule.SHOW_SNACKBAR(
+        new SnackbarMessage(
+          SnackbarType.Error,
+          "An error occured. Please try again."
+        )
+      );
+      return;
     }
 
     this.userSaved();

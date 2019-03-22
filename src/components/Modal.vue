@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="isOpen" :max-width="maxWidth" @keydown.esc="onEsc">
+  <v-dialog v-model="isOpen" :max-width="maxWidth" @keydown.esc="onEsc" lazy>
     <v-card>
       <v-card-title>{{modalTitle}}</v-card-title>
       <v-card-text>
@@ -7,8 +7,8 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="error" @click="isOpen = false">Cancel</v-btn>
-        <v-btn color="primary" @click="onSave">Save</v-btn>
+        <v-btn color="error" @click="isOpen = false">{{ cancelButtonText }}</v-btn>
+        <v-btn color="primary" @click="onSave">{{ saveButtonText }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -25,6 +25,10 @@ export default class Modal extends Vue {
   readonly value!: boolean;
   @Prop({ type: [String, Number], default: "" })
   readonly maxWidth!: string | number;
+  @Prop({ type: String, default: "Save" })
+  readonly saveButtonText!: string;
+  @Prop({ type: String, default: "Cancel" })
+  readonly cancelButtonText!: string;
 
   get modalTitle() {
     return this.title;
