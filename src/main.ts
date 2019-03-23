@@ -23,17 +23,18 @@ Vue.config.productionTip = false;
 Util.setLocalizationCookieIfNotSet(appConsts.AppConsts.localizationCookieName);
 
 const userConfigService: UserConfigService = new UserConfigService();
+const userConfig: Promise<any> = userConfigService.getUserConfiguration();
+const initSession: Promise<ILoginInformation> = SessionModule.InitSession();
 
-new Vue({
-  router,
-  store,
-  // tslint:disable-next-line:typedef
-  async created() {
-    const userConfig: Promise<any> = userConfigService.getUserConfiguration();
-    const initSession: Promise<ILoginInformation> = SessionModule.InitSession();
-    const userConfigData: any = await userConfig;
-    Util.abp = Util.extend(true, Util.abp, userConfigData.result);
-    await initSession;
-  },
-  render: h => h(App)
-}).$mount("#app");
+userConfig.then(userConfigData => {
+  Util.abp = Util.extend(true, Util.abp, userConfigData.result);
+  new Vue({
+    router,
+    store,
+    // tslint:disable-next-line:typedef
+    async created() {
+      await initSession;
+    },
+    render: h => h(App)
+  }).$mount("#app");
+});
