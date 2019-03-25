@@ -2,8 +2,10 @@ import UserDto from "@/core/entities/User/UserDto";
 import RoleDto from "@/core/entities/Roles/RoleDto";
 import SelectListItem from "@/core/user-interface-models/SelectListItem";
 import ValidationRules, { validationRule } from "@/lib/validation-helpers/validation-helpers";
+import User from "@/core/entities/User";
 
 export default class UserModalViewModel {
+  user: UserDto = new UserDto();
   id: number = 0;
   userName!: string;
   emailAddress!: string;
@@ -17,8 +19,26 @@ export default class UserModalViewModel {
 
   isModelValid: boolean = false;
 
+  constructor(roles: Array<RoleDto>, userDto: UserDto | null = null) {
+    this.roleSelectList = roles.map(
+      item => new SelectListItem(item.normalizedName, item.displayName)
+    );
+
+    if (userDto !== null) {
+      this.user = userDto;
+    }
+  }
+
+  get formTitle(): string {
+    if (this.user.id === 0) {
+      return "Create User";
+    } else {
+      return "Edit User";
+    }
+  }
+
   get isNewUser(): boolean {
-    return this.id === 0;
+    return this.user.id === 0;
   }
 
   get isRequiredRules(): Array<validationRule> {
@@ -44,30 +64,5 @@ export default class UserModalViewModel {
       (value: string) =>
         ValidationRules.matchesValue(value, this.password) || "Passwords do not match..."
     ];
-  }
-
-  resetModel(): void {
-    this.id = 0;
-    this.userName = "";
-    this.emailAddress = "";
-    this.firstName = "";
-    this.lastName = "";
-    this.isActive = true;
-    this.password = "";
-    this.confirmPassword = "";
-    this.roleSelectList = [];
-  }
-
-  setUser(user: UserDto, roles: Array<RoleDto>): void {
-    this.id = user.id;
-    this.userName = user.userName;
-    this.emailAddress = user.emailAddress;
-    this.firstName = user.name;
-    this.lastName = user.surname;
-    this.isActive = user.isActive;
-    this.userRoles = user.roleNames;
-    this.roleSelectList = roles.map(
-      item => new SelectListItem(item.normalizedName, item.displayName)
-    );
   }
 }

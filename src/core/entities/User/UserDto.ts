@@ -1,10 +1,10 @@
 export default class UserDto {
   id: number = 0;
-  userName: string = "";
-  name: string = "";
-  surname: string = "";
-  emailAddress: string = "";
-  isActive: boolean = false;
+  userName!: string;
+  name!: string;
+  surname!: string;
+  emailAddress!: string;
+  isActive: boolean = true;
   lastLoginTime?: Date;
   creationTime: Date = new Date();
   roleNames: Array<string> = new Array<string>();

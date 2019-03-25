@@ -1,7 +1,7 @@
 <template>
   <Modal
     v-model="showUserModal"
-    :title="formTitle"
+    :title="currentUser.formTitle"
     @save-click="saveUser"
     @esc-press="onEscPressed"
     max-width="600"
@@ -13,7 +13,7 @@
             <v-text-field
               label="Username *"
               required
-              v-model="currentUser.userName"
+              v-model="currentUser.user.userName"
               :rules="currentUser.isRequiredRules"
             ></v-text-field>
           </v-flex>
@@ -21,7 +21,7 @@
             <v-text-field
               label="Email *"
               required
-              v-model="currentUser.emailAddress"
+              v-model="currentUser.user.emailAddress"
               :rules="currentUser.emailRules"
             ></v-text-field>
           </v-flex>
@@ -31,7 +31,7 @@
             <v-text-field
               label="First Name *"
               required
-              v-model="currentUser.firstName"
+              v-model="currentUser.user.name"
               :rules="currentUser.isRequiredRules"
             ></v-text-field>
           </v-flex>
@@ -39,7 +39,7 @@
             <v-text-field
               label="Last Name *"
               required
-              v-model="currentUser.lastName"
+              v-model="currentUser.user.surname"
               :rules="currentUser.isRequiredRules"
             ></v-text-field>
           </v-flex>
@@ -72,13 +72,13 @@
               hint="Select User Roles"
               label="User Roles"
               :items="currentUser.roleSelectList"
-              v-model="currentUser.userRoles"
+              v-model="currentUser.user.userRoles"
             ></v-select>
           </v-flex>
         </v-layout>
         <v-layout>
           <v-flex xs6>
-            <v-checkbox label="Is Active" required v-model="currentUser.isActive"></v-checkbox>
+            <v-checkbox label="Is Active" required v-model="currentUser.user.isActive"></v-checkbox>
           </v-flex>
         </v-layout>
       </v-container>
@@ -105,10 +105,6 @@ export default class UserModal extends Vue {
 
   get currentUser() {
     return UserModule.editedUser;
-  }
-
-  get formTitle() {
-    return UserModule.formTitle;
   }
 
   get showUserModal() {

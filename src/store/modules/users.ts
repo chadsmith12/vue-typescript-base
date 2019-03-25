@@ -7,11 +7,12 @@ import CreateUserDto from "@/core/entities/User/CreateUserDto";
 import UserModalViewModel from "@/models/users/UserModalViewModel";
 import RoleDto from "@/core/entities/Roles/RoleDto";
 import ListResultDto from "@/core/entities/ListResultDto";
+import util from "@/lib/util";
 
 @Module({ dynamic: true, store, name: "users" })
 class UserState extends VuexModule {
   isLoadingUsers: boolean = true;
-  editedUser: UserModalViewModel = new UserModalViewModel();
+  editedUser: UserModalViewModel = new UserModalViewModel([]);
   formTitle: string = "";
   roles: Array<RoleDto> = [];
 
@@ -73,13 +74,14 @@ class UserState extends VuexModule {
 
   @Mutation
   SET_EDITED_USER(user: UserDto): void {
-    this.editedUser.setUser(user, this.roles);
+    const editingUser: UserDto = util.extend(true, {}, user);
+    this.editedUser = new UserModalViewModel(this.roles, editingUser);
     this.formTitle = "Edit User";
   }
 
   @Mutation
   SET_CREATE_USER(): void {
-    this.editedUser = new UserModalViewModel();
+    this.editedUser = new UserModalViewModel(this.roles);
     this.formTitle = "Create User";
   }
 
