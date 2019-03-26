@@ -3,9 +3,6 @@ import { Route } from "vue-router";
 import { AppModule } from "@/store/modules/app";
 import appconsts from "@/lib/appconsts";
 
-// defines the routes that are whitelisted, that we can get to without authenticating
-const whiteList: Array<string> = ["/login"];
-
 router.beforeEach((to: Route, from: Route, next: any) => {
   const requiresAuth: boolean = to.matched.some(record => record.meta.requiresAuth);
 

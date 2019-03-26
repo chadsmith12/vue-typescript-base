@@ -7,11 +7,11 @@ export const authRouter: IRouter = {
     {
       path: "login",
       name: "Login",
-      component: () => import("@/views/account/Login.vue")
+      component: () => import("@/views/account/Login.vue"),
+      meta: {
+        title: "Login",
+        requiresAuth: false
+      }
     }
-  ],
-  meta: {
-    title: "Login",
-    requiresAuth: false
-  }
+  ]
 };
