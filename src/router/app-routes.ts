@@ -36,6 +36,17 @@ export const appRoutes: Array<IRouter> = [
       icon: "mdi-account-group",
       permissionChecker: new SimplePermissionChecker(["Pages.Users"])
     }
+  },
+  {
+    path: "/tenants",
+    name: "Tenants",
+    component: () => import("@/views/users/Users.vue"),
+    meta: {
+      title: "Tenants",
+      requiresAuth: true,
+      icon: "mdi-account-group",
+      permissionChecker: new SimplePermissionChecker(["Pages.Tenants"])
+    }
   }
 ];
 
