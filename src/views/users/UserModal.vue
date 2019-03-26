@@ -72,7 +72,7 @@
               hint="Select User Roles"
               label="User Roles"
               :items="currentUser.roleSelectList"
-              v-model="currentUser.user.userRoles"
+              v-model="currentUser.user.roleNames"
             ></v-select>
           </v-flex>
         </v-layout>
@@ -138,13 +138,7 @@ export default class UserModal extends Vue {
       } else {
         await UserModule.updateUser(this.currentUser);
       }
-    } catch (error) {
-      SnackbarModule.SHOW_SNACKBAR(
-        new SnackbarMessage(
-          SnackbarType.Error,
-          "An error occured. Please try again."
-        )
-      );
+    } catch {
       return;
     }
 

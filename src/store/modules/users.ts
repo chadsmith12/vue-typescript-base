@@ -30,29 +30,20 @@ class UserState extends VuexModule {
 
   @Action
   createUser(user: UserModalViewModel): Promise<UserDto> {
-    const createdUser: CreateUserDto = new CreateUserDto();
-    createdUser.userName = user.userName;
-    createdUser.emailAddress = user.emailAddress;
-    createdUser.isActive = user.isActive;
-    createdUser.name = user.firstName;
-    createdUser.surname = user.lastName;
+    let createdUser: CreateUserDto = new CreateUserDto();
+    createdUser.userName = user.user.userName;
+    createdUser.emailAddress = user.user.emailAddress;
+    createdUser.isActive = user.user.isActive;
+    createdUser.name = user.user.name;
+    createdUser.surname = user.user.surname;
     createdUser.password = user.password;
-    createdUser.roleNames = user.userRoles;
+    createdUser.roleNames = user.user.roleNames;
     return userService.createUser(createdUser);
   }
 
   @Action
   updateUser(user: UserModalViewModel): Promise<UserDto> {
-    const updatedUser: UserDto = new UserDto();
-    updatedUser.id = user.id;
-    updatedUser.userName = user.userName;
-    updatedUser.name = user.firstName;
-    updatedUser.surname = user.lastName;
-    updatedUser.emailAddress = user.emailAddress;
-    updatedUser.isActive = user.isActive;
-    updatedUser.roleNames = user.userRoles;
-
-    return userService.updateUser(updatedUser);
+    return userService.updateUser(user.user);
   }
 
   @Action({ commit: "SET_ROLES" })

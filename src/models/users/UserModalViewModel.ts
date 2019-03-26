@@ -6,15 +6,8 @@ import User from "@/core/entities/User";
 
 export default class UserModalViewModel {
   user: UserDto = new UserDto();
-  id: number = 0;
-  userName!: string;
-  emailAddress!: string;
-  firstName!: string;
-  lastName!: string;
-  isActive: boolean = true;
   password!: string;
   confirmPassword!: string;
-  userRoles!: Array<string>;
   roleSelectList!: Array<SelectListItem>;
 
   isModelValid: boolean = false;

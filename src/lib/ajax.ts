@@ -32,6 +32,8 @@ ajax.interceptors.response.use(
     return response;
   },
   error => {
+    // tslint:disable-next-line:no-debugger
+    debugger;
     if (error.response && error.response.data.error && error.response.data.error.message) {
       SnackbarModule.SHOW_SNACKBAR(
         new SnackbarMessage(SnackbarType.Error, error.response.data.error.message)
