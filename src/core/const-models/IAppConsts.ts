@@ -26,4 +26,8 @@ export interface IAppConsts {
    * The name of the application
    */
   appName: string;
+  /**
+   * the breaking point for the width before we move into a more mobile layout
+   */
+  mobileBreakPoint: number;
 }

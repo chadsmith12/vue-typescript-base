@@ -6,7 +6,7 @@
     dark
     floating
     persistent
-    mobile-break-point="991"
+    :mobile-break-point="mobileBreakPoint"
     width="260"
   >
     <v-img :src="bgImage" height="100%">
@@ -42,11 +42,16 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { AppModule } from "@/store/modules/app";
+import appconsts from "../../lib/appconsts";
 
 @Component({})
 export default class Drawer extends Vue {
   logo: string = "./img/vuetifylogo.png";
   responsive: boolean = false;
+
+  get mobileBreakPoint() {
+    return appconsts.AppConsts.mobileBreakPoint;
+  }
 
   get navigationItems() {
     return AppModule.navigation.MenuItems;
@@ -64,7 +69,7 @@ export default class Drawer extends Vue {
   }
 
   private onResponsiveInverted() {
-    if (window.innerWidth < 991) {
+    if (window.innerWidth < this.mobileBreakPoint) {
       this.responsive = true;
     } else {
       this.responsive = false;

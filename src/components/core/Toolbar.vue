@@ -83,6 +83,7 @@ import { Component, Vue, Watch } from "vue-property-decorator";
 import { SessionModule } from "@/store/modules/session";
 import { AppModule } from "@/store/modules/app";
 import { IRouter } from "@/router/router-entities/IRouter";
+import appconsts from "../../lib/appconsts";
 
 @Component({})
 export default class Toolbar extends Vue {
@@ -122,7 +123,7 @@ export default class Toolbar extends Vue {
   }
 
   private onResponsiveInverted() {
-    if (window.innerWidth < 991) {
+    if (window.innerWidth < appconsts.AppConsts.mobileBreakPoint) {
       this.responsive = true;
       this.responsiveInput = false;
     } else {
