@@ -32,6 +32,7 @@ import TenantSwitchModel from "@/models/multitenancy/TenantSwitchModel";
 import util from "@/lib/util";
 import SnackbarMessage from "@/core/user-interface-models/Snackbar";
 import { SnackbarType } from "@/core/user-interface-models/ISnackbar";
+import { TenantAvailabilityState } from "../../core/dtos/Account/IsTenantAvailableOutput";
 
 @Component({})
 export default class TenantSwitch extends Vue {
@@ -47,12 +48,12 @@ export default class TenantSwitch extends Vue {
       );
 
       switch (foundTenant.state) {
-        case 1:
+        case TenantAvailabilityState.Available:
           abp.multiTenancy.setTenantIdCookie(foundTenant.tenantId);
           this.tenantModel.showTenantSwitch = false;
           location.reload();
           return;
-        case 2:
+        case TenantAvailabilityState.InActive:
           SnackbarModule.SHOW_SNACKBAR(
             new SnackbarMessage(
               SnackbarType.Error,
@@ -60,7 +61,7 @@ export default class TenantSwitch extends Vue {
             )
           );
           break;
-        case 3:
+        case TenantAvailabilityState.NotFound:
           SnackbarModule.SHOW_SNACKBAR(
             new SnackbarMessage(
               SnackbarType.Error,
