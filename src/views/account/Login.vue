@@ -14,8 +14,8 @@
           name="login"
           label="Login"
           type="text"
-          v-model="username"
-          :rules="userNameRules"
+          v-model="loginModel.username"
+          :rules="loginModel.userNameRules"
         ></v-text-field>
         <v-text-field
           id="password"
@@ -23,8 +23,8 @@
           name="password"
           label="Password"
           type="password"
-          v-model="password"
-          :rules="passwordRules"
+          v-model="loginModel.password"
+          :rules="loginModel.passwordRules"
         ></v-text-field>
       </v-card-text>
       <v-card-actions>
@@ -47,6 +47,7 @@ import { SnackbarModule } from "@/store/modules/snackbar";
 import SnackbarMessage from "@/core/user-interface-models/Snackbar";
 import { SnackbarType } from "@/core/user-interface-models/ISnackbar";
 import TenantSwitch from "@/views/account/TenantSwitch.vue";
+import LoginModel from "@/models/login/LoginModel";
 
 @Component({
   components: {
@@ -54,22 +55,10 @@ import TenantSwitch from "@/views/account/TenantSwitch.vue";
   }
 })
 export default class Login extends Vue {
+  loginModel: LoginModel = new LoginModel();
   isFormValid: boolean = false;
   isFormSubmitting: boolean = false;
-  username: string = "";
-  password: string = "";
   showTenantSwitch: boolean = false;
-
-  get userNameRules() {
-    return [(v: string) => !!v || "Username is required..."];
-  }
-
-  get passwordRules() {
-    return [
-      (v: string) => !!v || "Please enter a password...",
-      (v: string) => v.length >= 6 || "Password must be at least 6 characters"
-    ];
-  }
 
   get tenantName() {
     return SessionModule.tenantSwitchName;
@@ -85,8 +74,8 @@ export default class Login extends Vue {
 
       try {
         await SessionModule.Login({
-          username: this.username,
-          password: this.password
+          username: this.loginModel.username,
+          password: this.loginModel.password
         });
         this.$router.replace({
           name: "Home"
@@ -95,7 +84,7 @@ export default class Login extends Vue {
       } catch (error) {
         this.isFormSubmitting = false;
         this.isFormValid = false;
-        this.password = "";
+        this.loginModel.password = "";
       }
     }
   }
