@@ -36,7 +36,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import UserDto from "@/core/entities/User/UserDto";
+import UserDto from "@/core/dtos/User/UserDto";
 import UsersModel from "@/models/users/UsersModel";
 import { UserModule } from "@/store/modules/users";
 import { SnackbarModule } from "@/store/modules/snackbar";

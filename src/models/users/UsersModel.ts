@@ -1,5 +1,5 @@
 import { VuetifyHeader, Align } from "@/core/vuetify-data-tables/VuetifyHeader";
-import UserDto from "@/core/entities/User/UserDto";
+import UserDto from "@/core/dtos/User/UserDto";
 
 export default class UsersModel {
   headers: Array<VuetifyHeader> = [

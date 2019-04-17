@@ -1,5 +1,5 @@
-import { ILoginInformation } from "@/core/interfaces/ISession";
+import { CurrentLoginInformationOutput } from "@/core/dtos/Session/CurrentLoginInformationOutput";
 
 export default interface ISessionService {
-  getLoginInformation(): Promise<ILoginInformation>;
+  getLoginInformation(): Promise<CurrentLoginInformationOutput>;
 }

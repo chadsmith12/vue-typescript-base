@@ -56,6 +56,6 @@ function hasItemsSelected(value: []): boolean {
   return value.length > 0;
 }
 
-export type validationRule = (value: any) => string | boolean;
+export type ValidationRule = (value: any) => string | boolean;
 
 export default { valueIsRequired, isValidLength, isEmailValid, matchesValue, hasItemsSelected };

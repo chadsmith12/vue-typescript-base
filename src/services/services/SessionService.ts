@@ -1,11 +1,11 @@
 import ISessionService from "@/services/interfaces/ISessionService";
-import { ILoginInformation } from "@/core/interfaces/ISession";
+import { CurrentLoginInformationOutput } from "@/core/dtos/Session/CurrentLoginInformationOutput";
 import ajax from "@/lib/ajax";
-import IAbpAjaxResult from "@/core/interfaces/IAbpAjaxResult";
+import IAbpAjaxResult from "@/core/dtos/ResultDtos/IAbpAjaxResult";
 import { AxiosResponse } from "axios";
 
 class SessionService implements ISessionService {
-  async getLoginInformation(): Promise<ILoginInformation> {
+  async getLoginInformation(): Promise<CurrentLoginInformationOutput> {
     const response: AxiosResponse = await ajax.get(
       "/api/services/app/Session/GetCurrentLoginInformations",
       {
@@ -14,8 +14,8 @@ class SessionService implements ISessionService {
         }
       }
     );
-    const data: IAbpAjaxResult<ILoginInformation> = response.data;
-    const loginInformation: ILoginInformation = data.result;
+    const data: IAbpAjaxResult<CurrentLoginInformationOutput> = response.data;
+    const loginInformation: CurrentLoginInformationOutput = data.result;
 
     return loginInformation;
   }

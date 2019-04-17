@@ -1,12 +1,12 @@
 import { VuexModule, Module, Mutation, Action, getModule } from "vuex-module-decorators";
 import store from "@/store/store";
 import userService from "@/services/services/UserService";
-import PagedResultDto from "@/core/entities/pagination/PagedResultDto";
-import UserDto from "@/core/entities/User/UserDto";
-import CreateUserDto from "@/core/entities/User/CreateUserDto";
+import PagedResultDto from "@/core/dtos/ResultDtos/PagedResultDto";
+import UserDto from "@/core/dtos/User/UserDto";
+import CreateUserDto from "@/core/dtos/User/CreateUserDto";
 import UserModalViewModel from "@/models/users/UserModalViewModel";
-import RoleDto from "@/core/entities/Roles/RoleDto";
-import ListResultDto from "@/core/entities/ListResultDto";
+import RoleDto from "@/core/dtos/Roles/RoleDto";
+import ListResultDto from "@/core/dtos/ResultDtos/ListResultDto";
 import util from "@/lib/util";
 
 @Module({ dynamic: true, store, name: "users" })

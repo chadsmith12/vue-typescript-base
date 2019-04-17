@@ -5,10 +5,12 @@ import IPermissionDependency from "./IPermissionDependency";
  */
 export default class SimplePermissionChecker implements IPermissionDependency {
   permissions: Array<string>;
+
   constructor(requiredPermissions: Array<string>) {
     this.permissions = requiredPermissions;
   }
-  isAuthenticated(): boolean {
+
+  isAllowed(): boolean {
     console.log(abp.auth.allPermissions);
     return abp.auth.areAllGranted(...this.permissions);
   }

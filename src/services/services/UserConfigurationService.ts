@@ -1,6 +1,6 @@
 import IUserConfigurationService from "@/services/interfaces/IUserConfigurationService";
 import ajax from "@/lib/ajax";
-import IAbpAjaxResult from "@/core/interfaces/IAbpAjaxResult";
+import IAbpAjaxResult from "@/core/dtos/ResultDtos/IAbpAjaxResult";
 import { AxiosResponse } from "axios";
 
 class UserConfigurationService implements IUserConfigurationService {

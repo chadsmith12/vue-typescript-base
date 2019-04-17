@@ -1,9 +1,9 @@
 import ITenantInterface from "../interfaces/ITenantService";
-import PagedResultDto from "@/core/entities/pagination/PagedResultDto";
-import TenantDto from "@/core/entities/Tenants/TenantDto";
+import PagedResultDto from "@/core/dtos/ResultDtos/PagedResultDto";
+import TenantDto from "@/core/dtos/Tenants/TenantDto";
 import { AxiosResponse } from "axios";
 import ajax from "@/lib/ajax";
-import IAbpAjaxResult from "@/core/interfaces/IAbpAjaxResult";
+import IAbpAjaxResult from "@/core/dtos/ResultDtos/IAbpAjaxResult";
 
 class TenatService implements ITenantInterface {
   async getAllTenants(): Promise<PagedResultDto<TenantDto>> {

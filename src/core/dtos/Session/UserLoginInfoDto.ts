@@ -1,6 +1,4 @@
-import { IUser } from "@/core/interfaces/ISession";
-
-export default class User implements IUser {
+export class UserLoginInfoDto {
   name: string = "";
   surname: string = "";
   userName: string = "";

@@ -1,12 +1,12 @@
 import IUserService from "../interfaces/IUserService";
-import PagedResultDto from "@/core/entities/pagination/PagedResultDto";
-import UserDto from "@/core/entities/User/UserDto";
+import PagedResultDto from "@/core/dtos/ResultDtos/PagedResultDto";
+import UserDto from "@/core/dtos/User/UserDto";
 import ajax from "@/lib/ajax";
 import { AxiosResponse } from "axios";
-import IAbpAjaxResult from "@/core/interfaces/IAbpAjaxResult";
-import CreateUserDto from "@/core/entities/User/CreateUserDto";
-import ListResultDto from "@/core/entities/ListResultDto";
-import RoleDto from "@/core/entities/Roles/RoleDto";
+import IAbpAjaxResult from "@/core/dtos/ResultDtos/IAbpAjaxResult";
+import CreateUserDto from "@/core/dtos/User/CreateUserDto";
+import ListResultDto from "@/core/dtos/ResultDtos/ListResultDto";
+import RoleDto from "@/core/dtos/Roles/RoleDto";
 
 class UserService implements IUserService {
   async getAllUsers(): Promise<PagedResultDto<UserDto>> {

@@ -1,8 +1,8 @@
 import IAccountService from "@/services/interfaces/IAccountService";
-import { IUserLoginResult } from "@/core/interfaces/IUserLoginResult";
-import IsTenantAvailableOutput from "@/core/entities/IsTenantAvailableOutput";
+import { IUserLoginResult } from "@/core/dtos/Account/IUserLoginResult";
+import IsTenantAvailableOutput from "@/core/dtos/Account/IsTenantAvailableOutput";
 import ajax from "@/lib/ajax";
-import IAbpAjaxResult from "@/core/interfaces/IAbpAjaxResult";
+import IAbpAjaxResult from "@/core/dtos/ResultDtos/IAbpAjaxResult";
 import { AxiosResponse } from "axios";
 
 class AccountService implements IAccountService {

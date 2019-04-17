@@ -1,5 +1,5 @@
-import { IUserLoginResult } from "@/core/interfaces/IUserLoginResult";
-import IsTenantAvailableOutput from "@/core/entities/IsTenantAvailableOutput";
+import { IUserLoginResult } from "@/core/dtos/Account/IUserLoginResult";
+import IsTenantAvailableOutput from "@/core/dtos/Account/IsTenantAvailableOutput";
 
 export default interface ISessionService {
   login(username: string, password: string): Promise<IUserLoginResult>;

@@ -15,7 +15,7 @@ import UserConfigService from "@/services/services/UserConfigurationService";
 import Util from "@/lib/util";
 import appConsts from "@/lib/appconsts";
 import { SessionModule } from "@/store/modules/session";
-import { ILoginInformation } from "@/core/interfaces/ISession";
+import { CurrentLoginInformationOutput } from "@/core/dtos/Session/CurrentLoginInformationOutput";
 import "@/router/permissions";
 
 Vue.config.productionTip = false;
@@ -24,7 +24,7 @@ Util.setLocalizationCookieIfNotSet(appConsts.AppConsts.localizationCookieName);
 
 const userConfigService: UserConfigService = new UserConfigService();
 const userConfig: Promise<any> = userConfigService.getUserConfiguration();
-const initSession: Promise<ILoginInformation> = SessionModule.InitSession();
+const initSession: Promise<CurrentLoginInformationOutput> = SessionModule.InitSession();
 
 userConfig.then(userConfigData => {
   Util.abp = Util.extend(true, Util.abp, userConfigData.result);

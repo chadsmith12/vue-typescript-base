@@ -1,7 +1,7 @@
 import { VuexModule, Module, Mutation, Action, getModule } from "vuex-module-decorators";
 import store from "@/store/store";
 import accountService from "@/services/services/AccountService";
-import { IUserLoginResult } from "@/core/interfaces/IUserLoginResult";
+import { IUserLoginResult } from "@/core/dtos/Account/IUserLoginResult";
 
 export interface IUserState {
   token: string;

@@ -21,10 +21,7 @@ router.beforeEach((to: Route, from: Route, next: any) => {
           redirect: to.fullPath
         }
       });
-    } else if (
-      to.meta.permissionChecker !== undefined &&
-      !to.meta.permissionChecker.isAuthenticated
-    ) {
+    } else if (to.meta.permissionChecker !== undefined && !to.meta.permissionChecker.isAllowed) {
       next({
         name: "Login",
         query: {

@@ -1,6 +1,6 @@
-import { VuexModule, Module, Mutation, Action, getModule } from "vuex-module-decorators";
+import { VuexModule, Module, Action, getModule } from "vuex-module-decorators";
 import store from "@/store/store";
-import IsTenantAvailableOutput from "@/core/entities/IsTenantAvailableOutput";
+import IsTenantAvailableOutput from "@/core/dtos/Account/IsTenantAvailableOutput";
 import accountService from "@/services/services/AccountService";
 
 @Module({ dynamic: true, store, name: "account" })

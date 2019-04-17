@@ -1,3 +1,6 @@
+/**
+ * This presents a header inside a Vuetify table
+ */
 export class VuetifyHeader {
   text: string = "";
   value: string = "";
@@ -7,10 +10,11 @@ export class VuetifyHeader {
   width?: string;
 }
 
+/**
+ * The align options for a vuetify column def
+ */
 export enum Align {
   left = "left",
   center = "center",
   right = "right"
 }
-
-export default { VuetifyHeader, Align };

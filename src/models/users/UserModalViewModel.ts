@@ -1,8 +1,7 @@
-import UserDto from "@/core/entities/User/UserDto";
-import RoleDto from "@/core/entities/Roles/RoleDto";
+import UserDto from "@/core/dtos/User/UserDto";
+import RoleDto from "@/core/dtos/Roles/RoleDto";
 import SelectListItem from "@/core/user-interface-models/SelectListItem";
-import ValidationRules, { validationRule } from "@/lib/validation-helpers/validation-helpers";
-import User from "@/core/entities/User";
+import ValidationRules, { ValidationRule } from "@/core/helpers/validation-helpers";
 
 export default class UserModalViewModel {
   user: UserDto = new UserDto();
@@ -34,17 +33,17 @@ export default class UserModalViewModel {
     return this.user.id === 0;
   }
 
-  get isRequiredRules(): Array<validationRule> {
+  get isRequiredRules(): Array<ValidationRule> {
     return [(value: string) => !!value || "This field is required..."];
   }
 
-  get emailRules(): Array<validationRule> {
+  get emailRules(): Array<ValidationRule> {
     return [
       (value: string) => ValidationRules.isEmailValid(value) || "Please enter a valid email address"
     ];
   }
 
-  get passwordRules(): Array<validationRule> {
+  get passwordRules(): Array<ValidationRule> {
     return [
       (value: string) => ValidationRules.valueIsRequired(value) || "Please enter a password...",
       (value: string) =>
@@ -52,7 +51,7 @@ export default class UserModalViewModel {
     ];
   }
 
-  get confirmPasswordRules(): Array<validationRule> {
+  get confirmPasswordRules(): Array<ValidationRule> {
     return [
       (value: string) =>
         ValidationRules.matchesValue(value, this.password) || "Passwords do not match..."
