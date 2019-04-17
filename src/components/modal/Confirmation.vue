@@ -14,8 +14,12 @@
 <script lang="ts">
 import { Component, Vue, Prop, Emit } from "vue-property-decorator";
 
+/**
+ * This component is used for simple confirmation boxes.
+ * Example of this being needing to ask a user a simple yes or not question.
+ */
 @Component({})
-export default class ConfirmationModal extends Vue {
+export default class Confirmation extends Vue {
   @Prop({ type: Boolean, default: false })
   readonly value!: boolean;
   @Prop({ type: String, default: "", required: true })
@@ -35,6 +39,10 @@ export default class ConfirmationModal extends Vue {
     return newVal;
   }
 
+  /**
+   * This event is emitted when the user clicks yes or no.
+   * isConfirmed will tell you if the user confirmed it (yes), or did not (no).
+   */
   @Emit("confirmation-click")
   onConfirmation(isConfirmed: boolean) {
     this.isOpen = false;

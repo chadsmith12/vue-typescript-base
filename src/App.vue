@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <snackbar/>
+    <core-snackbar/>
     <router-view/>
   </v-app>
 </template>

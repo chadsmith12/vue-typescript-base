@@ -1,5 +1,5 @@
 <template>
-  <Modal
+  <modal-form
     v-model="showUserModal"
     :title="currentUser.formTitle"
     @save-click="saveUser"
@@ -83,7 +83,7 @@
         </v-layout>
       </v-container>
     </v-form>
-  </Modal>
+  </modal-form>
 </template>
 
 <script lang="ts">

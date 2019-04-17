@@ -25,7 +25,7 @@
         </v-fab-transition>
       </v-flex>
       <UserModal v-model="showUserModal" @save-changes="saveUser"/>
-      <ConfirmationModal
+      <modal-confirmation
         v-model="showDeleteConfirmation"
         message="Are you sure you want to delete this user?"
         @confirmation-click="onDeleteConfirm"
