@@ -8,9 +8,14 @@ const AppConsts: IAppConsts = {
     defaultAdminUserName: "admin"
   },
   authorization: {
-    encryptedAuthTokenName: "enc_auth_token"
+    encryptedAuthTokenName: "enc_auth_token",
+    googleAuth: {
+      clientId: "1089817839359-fmqnahge1ucgjcbnrl1au8pbjhhq1prt.apps.googleusercontent.com",
+      scope: "profile email",
+      prompt: "select_account"
+    }
   },
-  appBaseUrl: "http://localhost:8082",
+  appBaseUrl: "https://localhost:44338/",
   remoteServiceBaseUrl: "http://localhost:21021/",
   localizationCookieName: "Localization.CultureName",
   appName: "App Name",

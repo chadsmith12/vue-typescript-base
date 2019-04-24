@@ -35,6 +35,18 @@
           :disabled="!isFormValid || isFormSubmitting"
           @click="handleLogin"
         >Login</v-btn>
+        <v-btn
+          type="button"
+          color="primary"
+          @click="handleAuthClick"
+          :disabled="!isGAuthInit"
+        >Auth Code</v-btn>
+        <v-btn
+          type="button"
+          color="primary"
+          @click="handleGoogleLogin"
+          :disabled="!isGAuthInit"
+        >Sign In With Google</v-btn>
       </v-card-actions>
     </v-form>
   </v-card>
@@ -48,6 +60,7 @@ import SnackbarMessage from "@/core/user-interface-models/Snackbar";
 import { SnackbarType } from "@/core/user-interface-models/ISnackbar";
 import TenantSwitch from "@/views/account/TenantSwitch.vue";
 import LoginModel from "@/models/login/LoginModel";
+import ajax from "../../lib/ajax";
 
 @Component({
   components: {
@@ -59,6 +72,19 @@ export default class Login extends Vue {
   isFormValid: boolean = false;
   isFormSubmitting: boolean = false;
   showTenantSwitch: boolean = false;
+  isGAuthInit: boolean = false;
+  isGAuthSignedIn: boolean = false;
+
+  async handleAuthClick() {
+    const code = await this.$gAuth.getAuthCode();
+    console.log(code);
+  }
+
+  async handleGoogleLogin() {
+    const user = await this.$gAuth.signIn();
+    const authResponse = user.getAuthResponse();
+    console.log(authResponse.id_token);
+  }
 
   get tenantName() {
     return SessionModule.tenantSwitchName;
@@ -87,6 +113,16 @@ export default class Login extends Vue {
         this.loginModel.password = "";
       }
     }
+  }
+
+  mounted() {
+    // atteempt to make sure we initailized. keep checking until we know we are
+    let checkGAuth = setInterval(() => {
+      this.isGAuthInit = this.$gAuth.isInit;
+      this.isGAuthSignedIn = this.$gAuth.isAuthorized;
+
+      if (this.isGAuthInit) clearInterval(checkGAuth);
+    }, 1000);
   }
 }
 </script>

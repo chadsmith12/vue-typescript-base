@@ -20,6 +20,7 @@ ajax.interceptors.request.use(
       AppConsts.AppConsts.localizationCookieName
     );
     config.headers.common["Abp.TenantId"] = abp.multiTenancy.getTenantIdCookie();
+    config.headers.common["Access-Control-Allow-Origin"] = "http://localhost:8082";
     return config;
   },
   function(error: any): Promise<never> {
