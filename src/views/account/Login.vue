@@ -83,6 +83,17 @@ export default class Login extends Vue {
   async handleGoogleLogin() {
     const user = await this.$gAuth.signIn();
     const authResponse = user.getAuthResponse();
+    console.log(authResponse);
+    const data = {
+      authProvider: "Google",
+      providerKey: "Google",
+      providerAccessCode: authResponse.id_token
+    };
+    const response = await ajax.post(
+      "/api/TokenAuth/ExternalAuthenticate",
+      data
+    );
+    console.log(response);
     console.log(authResponse.id_token);
   }
 
