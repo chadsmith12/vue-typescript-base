@@ -26,6 +26,14 @@ const userConfigService: UserConfigService = new UserConfigService();
 const userConfig: Promise<any> = userConfigService.getUserConfiguration();
 const initSession: Promise<CurrentLoginInformationOutput> = SessionModule.InitSession();
 
+/**
+ * 1: Look in to having the getUserConfiguration call no longer any.
+ * Try to get this to be a typescript object
+ * 2: On login we need to find a good way to refresh the abp information so permissions get updated
+ * 3: Maybe the login method inside the module could handle getting user configuration.
+ * 
+ */
+
 userConfig.then(userConfigData => {
   Util.abp = Util.extend(true, Util.abp, userConfigData.result);
   new Vue({
